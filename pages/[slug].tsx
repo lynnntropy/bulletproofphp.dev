@@ -191,8 +191,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const { content, data } = matter(source);
 
-  console.log(data);
-
   const mdxSource = await serializeMdx(content, {
     scope: data,
   });
