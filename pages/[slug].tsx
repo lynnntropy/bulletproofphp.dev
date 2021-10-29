@@ -128,7 +128,7 @@ const PostPage: NextPage<Props> = ({ frontmatter, source }) => (
       </div>
       <div className="relative px-4 sm:px-6 lg:px-8">
         <div className="text-lg max-w-prose mx-auto">
-          <h1 className="mb-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+          <h1 className="mb-1 block text-3xl font-title font-bold text-center leading-8 tracking-tight text-gray-900 sm:text-4xl">
             {frontmatter.title}
           </h1>
           <span className="block text-center text-base text-gray-500">
