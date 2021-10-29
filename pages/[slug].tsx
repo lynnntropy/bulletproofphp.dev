@@ -8,6 +8,7 @@ import { serialize as serializeMdx } from "next-mdx-remote/serialize";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import Image from "next/image";
 import { format as formatDate, parseISO as parseISODate } from "date-fns";
+import NewsletterBanner from "../components/NewsletterBanner";
 
 interface Props {
   frontmatter: any;
@@ -20,7 +21,7 @@ const PostPage: NextPage<Props> = ({ frontmatter, source }) => (
     <main>
       <MDXRemote {...source} />
     </main> */}
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden mb-24">
       <div className="hidden lg:block lg:absolute lg:inset-y-0 lg:h-full lg:w-full">
         <div
           className="relative h-full text-lg max-w-prose mx-auto"
@@ -240,6 +241,7 @@ const PostPage: NextPage<Props> = ({ frontmatter, source }) => (
         </div>
       </div>
     </div>
+    <NewsletterBanner />
   </div>
 );
 
