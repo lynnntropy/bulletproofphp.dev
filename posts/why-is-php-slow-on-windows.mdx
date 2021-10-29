@@ -1,0 +1,16 @@
+---
+title: Why is PHP So Slow On Windows?
+date: "2021-10-25"
+author:
+  name: Lynn
+  link: https://twitter.com/omegavesko
+  avatar: /images/avatars/lynn.jpg
+---
+
+Are you spending hours trying to figure out why your PHP code runs super slowly on your Windows machine, only to see it run just fine when you deploy it to your server? Are you tearing your hair out trying to get a relatively complex app to so much as return a response without timing out?
+
+This is an easy problem to get caught by because, while PHP _supports_ Windows natively, it's really slow on Windows compared to other platforms — which gets all the more apparent if you're e.g. running a framework in development mode, you have things like XDebug and other extensions enabled, and so on.
+
+To an extent, this is also only one symptom of a broader issue, which is that because most programmers use \*nix operating systems (macOS, Linux, etc.) rather than Windows, the development experience of even popular tools can often be subpar or even entirely broken on Windows. Windows support just isn't a priority for many projects.
+
+Thankfully, nowadays this is a problem you can sidestep entirely by doing your development in WSL ([Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/)) rather than trying to get things to run (and run well) on Windows natively. WSL, along with other recent projects like [Windows Terminal](https://docs.microsoft.com/en-us/windows/terminal/), have done wonders for Windows' viability as a development environment for languages like PHP and JavaScript, which have never really had first-class support for Windows. So, if you haven't already, I highly recommend shifting your development environment to WSL.
