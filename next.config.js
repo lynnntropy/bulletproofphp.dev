@@ -1,4 +1,5 @@
 const withPlugins = require("next-compose-plugins");
+const { withPlausibleProxy } = require("next-plausible");
 
 const svgrWebpackLoader = {
   test: /\.svg$/,
@@ -26,4 +27,4 @@ const config = {
   },
 };
 
-module.exports = withPlugins([], config);
+module.exports = withPlugins([withPlausibleProxy()], config);

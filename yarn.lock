@@ -3887,6 +3887,11 @@ next-mdx-remote@^3.0.7:
     esbuild "^0.12.9"
     pkg-dir "^5.0.0"
 
+next-plausible@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npmjs.org/next-plausible/-/next-plausible-3.0.1.tgz#4aff886f438b79c2f7767f204e0ca1fd4ebdc387"
+  integrity sha512-DA7MgmLf68HWkUdncQwok/auALuZR6G2OkgDydy0ADncRIjmX5nv+E3ia8C3LJ5jLvoNRwX5eUeuna0Ao+exuQ==
+
 next@12.0.1:
   version "12.0.1"
   resolved "https://registry.npmjs.org/next/-/next-12.0.1.tgz#7b82a73bc185bfda7372e7e8309f9b38e6be9cb0"
