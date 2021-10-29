@@ -14,7 +14,7 @@ interface Props {
 
 const PostPage: NextPage<Props> = ({ frontmatter, source }) => (
   <div>
-    post uwu
+    post owo
     <main>
       <MDXRemote {...source} />
     </main>
