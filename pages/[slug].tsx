@@ -2,13 +2,14 @@ import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { postFilePaths, POSTS_PATH } from "../utils/mdx";
 import path from "path";
 import fs from "fs";
-
+import Head from "next/head";
 import matter from "gray-matter";
 import { serialize as serializeMdx } from "next-mdx-remote/serialize";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import Image from "next/image";
 import { format as formatDate, parseISO as parseISODate } from "date-fns";
 import NewsletterBanner from "../components/NewsletterBanner";
+import { applyTitleTemplate } from "../utils/title";
 
 const mdxComponents = {
   // eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element
@@ -22,6 +23,9 @@ interface Props {
 
 const PostPage: NextPage<Props> = ({ frontmatter, source }) => (
   <>
+    <Head>
+      <title>{applyTitleTemplate(frontmatter.title)}</title>
+    </Head>
     <div className="relative overflow-hidden mb-24">
       <div className="hidden lg:block lg:absolute lg:inset-y-0 lg:h-full lg:w-full">
         <div
