@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@fontsource/fira-sans": "^4.5.0",
     "@fontsource/inter": "^4.5.0",
     "@headlessui/react": "^1.4.1",
     "@heroicons/react": "^1.0.5",
