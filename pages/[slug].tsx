@@ -167,7 +167,7 @@ const PostPage: NextPage<Props> = ({ frontmatter, source }) => (
         </div>
       </div>
     </div>
-    <NewsletterBanner />
+    <NewsletterBanner subtitle="Get more content like this delivered straight to your inbox." />
   </>
 );
 

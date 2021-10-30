@@ -1,4 +1,14 @@
-const NewsletterBanner: React.FC = () => (
+import { ReactNode } from "react";
+
+interface Props {
+  title?: ReactNode;
+  subtitle?: ReactNode;
+}
+
+const NewsletterBanner: React.FC<Props> = ({
+  title = "Sign up for our newsletter",
+  subtitle = "Get fresh PHP content delivered straight to your inbox.",
+}) => (
   <div className="bg-gray-800">
     <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center">
       <div className="lg:w-0 lg:flex-1">
@@ -6,14 +16,13 @@ const NewsletterBanner: React.FC = () => (
           className="text-3xl font-title font-extrabold tracking-tight text-white sm:text-4xl"
           id="newsletter-headline"
         >
-          Sign up for our newsletter
+          {title}
         </h2>
         <p className="mt-2 max-w-3xl text-lg leading-6 text-gray-300">
-          Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui Lorem
-          cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat.
+          {subtitle}
         </p>
       </div>
-      <div className="mt-8 lg:mt-0 lg:ml-8">
+      <div className="mt-8 lg:mt-0 lg:ml-8 lg:w-full lg:max-w-md">
         <form className="sm:flex">
           <label htmlFor="email-address" className="sr-only">
             Email address

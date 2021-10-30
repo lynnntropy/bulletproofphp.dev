@@ -18,7 +18,7 @@ const Home: NextPage<Props> = ({ posts }) => {
           <Link key={post.slug} href={postPath(post.slug)}>
             <a>
               <div className="flex flex-col items-start bg-white shadow rounded px-5 py-3 md:flex-row md:items-center">
-                <span className="flex-1">{post.data.title}</span>
+                <span className="flex-1 font-medium">{post.data.title}</span>
                 <span className="text-sm text-gray-500">
                   {formatDate(parseISODate(post.data.date), "MMM do, yyyy")}
                 </span>
