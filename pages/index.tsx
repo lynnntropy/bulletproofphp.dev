@@ -13,7 +13,7 @@ type Props = ReturnType<typeof getStaticProps>["props"];
 const Home: NextPage<Props> = ({ posts }) => {
   return (
     <div className="flex-1 flex flex-col">
-      <div className="flex-1 mb-24 max-w-2xl w-full mx-auto flex flex-col gap-4 px-3 md:px-0">
+      <div className="flex-1 mb-8 max-w-2xl w-full mx-auto flex flex-col gap-4 px-3 md:px-0 sm:mb-24">
         {posts.map((post) => (
           <Link key={post.slug} href={postPath(post.slug)}>
             <a>
