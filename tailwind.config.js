@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     extend: {},
     fontFamily: {
-      title: ["Fira Sans", "Helvetica", "Arial", "sans-serif"],
+      title: ["Inter", "Helvetica", "Arial", "sans-serif"],
     },
   },
   variants: {

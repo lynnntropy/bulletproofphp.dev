@@ -128,7 +128,7 @@ const PostPage: NextPage<Props> = ({ frontmatter, source }) => (
       </div>
       <div className="relative px-4 sm:px-6 lg:px-8">
         <div className="text-lg max-w-prose mx-auto">
-          <h1 className="mb-1 block text-3xl font-title font-bold text-center leading-8 tracking-tight text-gray-900 sm:text-4xl">
+          <h1 className="mb-1 block text-3xl font-title font-black text-center leading-8 tracking-tight text-gray-900 sm:text-4xl">
             {frontmatter.title}
           </h1>
           <span className="block text-center text-base text-gray-500">
@@ -151,7 +151,7 @@ const PostPage: NextPage<Props> = ({ frontmatter, source }) => (
               <a
                 href={frontmatter.author.link}
                 target="_blank"
-                className="underline text-purple-500"
+                className="underline font-medium text-indigo-500"
                 rel="noreferrer"
               >
                 {frontmatter.author.name}

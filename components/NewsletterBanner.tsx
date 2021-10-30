@@ -3,12 +3,12 @@ const NewsletterBanner: React.FC = () => (
     <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center">
       <div className="lg:w-0 lg:flex-1">
         <h2
-          className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl"
+          className="text-3xl font-title font-extrabold tracking-tight text-white sm:text-4xl"
           id="newsletter-headline"
         >
           Sign up for our newsletter
         </h2>
-        <p className="mt-3 max-w-3xl text-lg leading-6 text-gray-300">
+        <p className="mt-2 max-w-3xl text-lg leading-6 text-gray-300">
           Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui Lorem
           cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat.
         </p>
@@ -37,10 +37,7 @@ const NewsletterBanner: React.FC = () => (
           </div>
         </form>
         <p className="mt-3 text-sm text-gray-300">
-          We care about the protection of your data. Read our{" "}
-          <a href="#" className="text-white font-medium underline">
-            Privacy Policy.
-          </a>
+          We'll never send you spam or share your email.
         </p>
       </div>
     </div>

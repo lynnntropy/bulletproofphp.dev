@@ -1013,6 +1013,11 @@
   resolved "https://registry.npmjs.org/@fontsource/fira-sans/-/fira-sans-4.5.0.tgz#b21f850fd3b2dabc757090d23fac789d10acd4b6"
   integrity sha512-qFYIYZgerQ0iC+j6HjhUuKDOYOG3UFV8QIARdkhvZsNDpA6PTHiY8zGr5e3BjwzFFJBJOrnisxSvtbrUb82KXw==
 
+"@fontsource/inter@^4.5.0":
+  version "4.5.0"
+  resolved "https://registry.npmjs.org/@fontsource/inter/-/inter-4.5.0.tgz#b99e49fa178e4086250fb3df2ed6a7366c9a0cb5"
+  integrity sha512-2efK8Ru0LkuOYrEpiHPlV02YkTdIKGbezlxVNeA8/3c+tNt7P2aQPuiYYkVy7N4GA5LWSUVcLL/91MpCIjinOw==
+
 "@hapi/accept@5.0.2":
   version "5.0.2"
   resolved "https://registry.npmjs.org/@hapi/accept/-/accept-5.0.2.tgz#ab7043b037e68b722f93f376afb05e85c0699523"

@@ -3,8 +3,10 @@ import type { AppProps } from "next/app";
 import Layout from "../components/Layout";
 import PlausibleProvider from "next-plausible";
 
-import "@fontsource/fira-sans";
-import "@fontsource/fira-sans/700.css";
+import "@fontsource/inter";
+import "@fontsource/inter/700.css";
+import "@fontsource/inter/800.css";
+import "@fontsource/inter/900.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
