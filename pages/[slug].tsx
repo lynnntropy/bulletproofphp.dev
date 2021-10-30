@@ -92,7 +92,8 @@ const PostPage: NextPage<Props> = ({ frontmatter, source }) => (
               fill="url(#f210dbf6-a58d-4871-961e-36d5016a0f49)"
             />
           </svg>
-          <svg
+          {/* TODO maybe we could conditionally enable this if the post is long enough? */}
+          {/* <svg
             className="absolute bottom-12 left-full transform translate-x-32"
             width={404}
             height={384}
@@ -123,7 +124,7 @@ const PostPage: NextPage<Props> = ({ frontmatter, source }) => (
               height={384}
               fill="url(#d3eb07ae-5182-43e6-857d-35c643af9034)"
             />
-          </svg>
+          </svg> */}
         </div>
       </div>
       <div className="relative px-4 sm:px-6 lg:px-8">
@@ -161,7 +162,7 @@ const PostPage: NextPage<Props> = ({ frontmatter, source }) => (
             )}
           </span>
         </div>
-        <div className="mt-6 prose prose-indigo prose-lg text-gray-500 mx-auto">
+        <div className="mt-6 prose prose-indigo prose-lg text-gray-700 mx-auto">
           <MDXRemote components={mdxComponents} {...source} />
         </div>
       </div>
