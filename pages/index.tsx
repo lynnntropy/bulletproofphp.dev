@@ -39,11 +39,10 @@ export default Home;
 export function getStaticProps() {
   const posts = postFilePaths.map((filePath) => {
     const source = fs.readFileSync(path.join(POSTS_PATH, filePath));
-    const { content, data } = matter(source);
+    const { data } = matter(source);
     const slug = filePath.replace(/\.mdx?$/, "");
 
     return {
-      content,
       data,
       slug,
     };
