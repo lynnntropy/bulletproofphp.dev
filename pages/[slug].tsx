@@ -14,6 +14,7 @@ import { applyTitleTemplate } from "../utils/title";
 const mdxComponents = {
   // eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element
   img: (props: any) => <img className="w-full rounded-lg" {...props} />,
+  a: (props: any) => <a target="_blank" {...props} />,
 };
 
 interface Props {
