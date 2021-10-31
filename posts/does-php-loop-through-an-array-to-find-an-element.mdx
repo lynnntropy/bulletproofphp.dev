@@ -1,0 +1,14 @@
+---
+title: Does PHP Loop Through the Whole Array To Find a Specific Element?
+date: "2021-10-31"
+author:
+  name: Lynn
+  link: https://twitter.com/omegavesko
+  avatar: /images/avatars/lynn.jpg
+---
+
+I think this is one of those things that experienced engineers tend to forget beginners don't just intuitively understand.
+
+In any case, **the answer to this is no!** If you're accessing a specific element of a PHP array using the `array[key]` syntax (e.g. `$array['pancake']` or `$array[37]`), PHP looks up that element directly rather than going through each element to find the one you're looking for. In computer science talk, we would say that this is an operation that takes [constant time](https://en.wikipedia.org/wiki/Time_complexity), or O(1) time.
+
+That being said, that's only the case if you're actually giving PHP the key to the item you're looking for. If you're looking for an item in an array but you don't know its key (e.g. using `array_search()`), that doesn't apply anymore, and you will need to loop through the array (either by writing a loop yourself, or by having PHP or a library do it) to see if it's in there.
