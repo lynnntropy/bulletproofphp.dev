@@ -1,0 +1,20 @@
+---
+title: Don't forget to session_start()!
+date: "2021-11-01"
+author:
+  name: Lynn
+  link: https://twitter.com/omegavesko
+  avatar: /images/avatars/lynn.jpg
+---
+
+Are you trying to get to grips with how sessions work in PHP, but having trouble getting PHP to pick up the session you started in a previous request? If so, you may be the victim of unfortunate function naming.
+
+You might (reasonably) assume from the name that you only need to call `session_start()` to create the session, but you actually need to use it to resume the session for the current request, too. From the [PHP manual](https://www.php.net/manual/en/function.session-start.php) (emphasis mine):
+
+<blockquote>
+  <code>session_start()</code> creates a session or{" "}
+  <span className="text-indigo-600">resumes the current one</span> based on a
+  session identifier passed via a GET or POST request, or passed via a cookie.
+</blockquote>
+
+So, make sure to call `session_start()` whenever you want to do anything with the session, not only when you want to start a new one. (You could also set the `session.auto_start` setting to `1`, which tells PHP to automatically start the session for every request.)
