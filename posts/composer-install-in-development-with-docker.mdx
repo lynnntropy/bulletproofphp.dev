@@ -1,0 +1,14 @@
+---
+title: "PHP Development With Docker: Where Should You Run 'composer install'?"
+date: "2021-11-06"
+author:
+  name: Lynn
+  link: https://twitter.com/omegavesko
+  avatar: /images/avatars/lynn.jpg
+---
+
+If you're doing local PHP development with Docker, you might be confused as to whether you should be installing Composer dependencies from inside or outside of the container.
+
+Either option will _probably_ work, but it's best to run `composer install` **inside** the container rather than outside it, to avoid any issues that may arise from mismatched PHP versions between the container and host, file permissions being different, etc.
+
+That being said, keep in mind that this is only true for local development, when you're mounting your code onto your container. For production your image should be self-contained (i.e. you install your dependencies and copy over your code in the `Dockerfile`), so you should never find yourself having to mount your app code or dependencies onto the container.
