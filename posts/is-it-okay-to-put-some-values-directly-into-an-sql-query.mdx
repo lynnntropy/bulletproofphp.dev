@@ -1,0 +1,20 @@
+---
+title: Is It Okay To Put Some Values Directly Into an SQL Query?
+date: "2021-11-07"
+author:
+  name: Lynn
+  link: https://twitter.com/omegavesko
+  avatar: /images/avatars/lynn.jpg
+---
+
+If you've been looking into how to write database code in PHP the "right" way, you probably know that you want to be using [prepared statements](https://www.php.net/manual/en/pdo.prepared-statements.php).
+
+However, with all the (understandable) focus most resources put on using parameters instead of just putting your values into the string, you might be confused as to whether you're allowed to put values you _know_ won't change into the query string, like for a `LIMIT` clause:
+
+```php
+$db->prepare('SELECT * FROM fruit WHERE name = :name LIMIT 1');
+```
+
+The answer to this is: **yes, you can!**
+
+The reason it's important for most values in queries like this to be parameters is to avoid putting user input directly into the query, which would open you up to [SQL injection](https://en.wikipedia.org/wiki/SQL_injection). However, if you know a value is just going to be a constant like in this example, it's fine to put it directly in the query.
