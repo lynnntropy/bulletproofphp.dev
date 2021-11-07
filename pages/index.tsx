@@ -33,7 +33,7 @@ const Home: NextPage<Props> = ({ posts }) => {
                     <span className="flex-1 font-medium">
                       {post.data.title}
                     </span>
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-gray-500 md:ml-6">
                       {formatDate(parseISODate(post.data.date), "MMM do, yyyy")}
                     </span>
                   </div>
