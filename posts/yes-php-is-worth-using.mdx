@@ -1,0 +1,362 @@
+---
+title: Yes, PHP is Worth Learning/Using in $CURRENT_YEAR
+date: "2021-11-17"
+author:
+  name: Lynn
+  link: https://twitter.com/omegavesko
+  avatar: /images/avatars/lynn.jpg
+---
+
+Welcome, dear reader! If you're reading this, you're probably one of the many people who find themselves wondering how much of what they've heard about PHP (a lot of which isn't super positive, I'm sure) is still relevant today. Is PHP a dying language? Should you learn PHP in $CURRENT_YEAR, and/or use it to build your next app? Hopefully, by the end of this post, you'll have the answers to these questions and more.
+
+Rather than yet another generic overview of the language or a point-by-point refutation of the things people say is wrong with it, what I want this post to be more than anything else is kind of a comprehensive list of ✨good things about PHP✨ (or, well, at least things that I think are good).
+
+## How We Got Here
+
+If you have any preconceptions about PHP at all, they're probably largely shaped by what the discourse around it was during the PHP 4 and PHP 5 days. This was an era where PHP was increasingly seen as a "legacy" platform in contrast to cool new projects like Ruby on Rails and Node.js, and conventional wisdom was that PHP was simply [a "bad" language](https://eev.ee/blog/2012/04/09/php-a-fractal-of-bad-design/), or at least a language a lot of people were writing bad code in.
+
+You might also have heard that PHP 7 was a big step forward for PHP, though, and this is true. While the story of how PHP got to where it is today is largely one of many incremental improvements, a lot of people would probably agree that the release of PHP 7 in 2015 was the start of the "modern" PHP era. PHP 7 [included](https://www.php.net/manual/en/migration70.new-features.php), among other things:
+
+- [dramatic performance improvements](https://web.archive.org/web/20160413094701/http://zend.com/en/resources/php7_infographic)
+- a significantly expanded type system (scalar types and return types)
+- anonymous classes
+- the null coalescing operator (`??`)
+- the spaceship operator (`<=>`)
+- unicode codepoint escape syntax (`echo "\u{2764}";` → ❤️)
+- a [built-in CSPRNG API](https://www.php.net/manual/en/ref.csprng.php)
+
+## What PHP Code Looks Like Today
+
+Over the last several years, PHP has become a significantly more ergonomic language, as examples like [this post](https://stitcher.io/blog/evolution-of-a-php-object) illustrate very well. Let's do a rundown of some of the most significant features PHP has gained over the years, some of which you may or may not recognize from other languages (and some you might even wish your favorite language had!).
+
+### [The null coalescing operator](https://www.php.net/manual/en/migration70.new-features.php#migration70.new-features.null-coalesce-op)
+
+```php
+// equivalent to:
+// $username = isset($_GET['user']) ? $_GET['user'] : 'anonymous';
+
+$username = $_GET['user'] ?? 'anonymous';
+```
+
+### [The nullsafe operator](https://stitcher.io/blog/php-8-nullsafe-operator)
+
+```php
+// equivalent to:
+// $dateTime = $event->getDateTime();
+// $timestamp = $dateTime ? $dateTime->getTimestamp() : null;
+
+$timestamp = $event->getDateTime()?->getTimestamp();
+```
+
+### [Constructor property promotion](https://stitcher.io/blog/constructor-promotion-in-php-8)
+
+```php
+class WidgetManager
+{
+    public function __construct(
+        public LoggerInterface $logger
+    ) {}
+}
+```
+
+This code is equivalent to:
+
+```php
+class WidgetManager
+{
+    public LoggerInterface $logger;
+
+    public function __construct(
+        LoggerInterface $logger
+    ) {
+        $this->logger = $logger;
+    }
+}
+```
+
+### [The `match` expression](https://stitcher.io/blog/php-8-match-or-switch)
+
+```php
+$error = match ($code) {
+    0 = null,
+    1 => new SomeError(),
+    2, 3, 4 => new OtherError(),
+    default => new UnknownError(),
+}
+```
+
+### [Named arguments](https://stitcher.io/blog/php-8-named-arguments)
+
+```php
+function testFunction(
+    string $first,
+    string $second,
+    ?string $third = null,
+    ?string $fourth = null
+) { /* … */ }
+
+testFunction(
+    second: 'second value',
+    first: 'first value',
+    fourth: 'fourth value',
+);
+```
+
+### [Arrow functions](https://stitcher.io/blog/short-closures-in-php)
+
+```php
+$collection = new ArrayCollection([1, 2, 3]);
+$incremented = $collection->map(fn (int $i) => $i + 1);
+// $incremented is [2, 3, 4]
+```
+
+### [Attributes](https://stitcher.io/blog/attributes-in-php-8)
+
+```php
+#[Route('/greetings')]
+class GreetingController
+{
+    #[Route('/hello')]
+    public function hello(): string
+    {
+        return 'hello';
+    }
+}
+```
+
+### [The spaceship operator](https://www.php.net/manual/en/migration70.new-features.php#migration70.new-features.spaceship-op)
+
+The spaceship operator is a little esoteric (and possibly a little controversial, depending on how confident you are that people reading your code will know what it does without looking it up), but the one thing it's very useful for is writing clear and succinct comparison/sorting functions.
+
+```php
+echo 1 <=> 1; // 0
+echo 1 <=> 2; // -1
+echo 2 <=> 1; // 1
+
+echo "a" <=> "a"; // 0
+echo "a" <=> "b"; // -1
+echo "b" <=> "a"; // 1
+```
+
+### [The spread operator](https://wiki.php.net/rfc/spread_operator_for_array)
+
+```php
+$first = ['a' => 1, 'b' => 2];
+$second = ['c' => 3, 'd' => 4];
+
+$merged = [...$first, ...$second];
+
+// $merged is ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
+```
+
+### [The numeric literal separator](https://wiki.php.net/rfc/numeric_literal_separator)
+
+```php
+$withoutSeparators = 1000000000;
+$withSeparators = 1_000_000_000;
+
+echo $withoutSeparators === $withSeparators; // true
+```
+
+### [Array destructuring](https://stitcher.io/blog/array-destructuring-with-list-in-php)
+
+```php
+$list = [1, 2]
+[$first, $second] = $list
+
+// $first is 1, $second is 2
+
+$array = [
+    'a' => 1,
+    'b' => 2
+];
+
+['a' => $a, 'b' => $b] = $array;
+
+// $a is 1, $b is 2
+```
+
+## PHP's Type System
+
+While it's by no means the strictest type system out there (not to mention entirely optional, much like TypeScript), modern PHP has a robust type system that includes features like **interfaces, scalar and object types, nullable types, union and intersection types, and more**.
+
+Code speaks louder than words, so here's an example of what code that takes full advantage of the type system in PHP 8.1 can look like:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+class MyClass
+{
+    public \DateTimeInterface $dateTime = new \DateTime();
+
+    public function __construct(
+        public readonly LoggerInterface $logger
+    ) {}
+
+    public function useUnionTypes(int|string $input): void
+    {
+        // $input is guaranteed to be either an int or a string
+    }
+
+    public function useIntersectionTypes(Traversable&Countable $input): void
+    {
+        // $input is guaranteed to satisfy the constraints
+        // of both `Traversable` AND `Countable`
+    }
+}
+```
+
+## Package Management
+
+[Composer](https://getcomposer.org/) is the de facto standard package manager for modern-day PHP, and has been for about a decade now. It's strongly inspired by other popular package managers, such as [npm](https://www.npmjs.com/) for JavaScript, so if you've used a modern package manager in any other language, chances are you'll feel right at home with Composer.
+
+[Packagist](https://packagist.org/) is the main public package repository for Composer. Like npm, you can also use Packagist to host your private packages for [a reasonable monthly fee](https://packagist.com/pricing).
+
+What I'd consider the main difference between Composer and npm is actually one of culture, rather than a technical difference — the PHP community doesn't generally have the preference for micropackages that the JavaScript community does, so for better or worse, the average PHP project is more likely to have dozens of larger dependencies than hundreds of smaller ones.
+
+## Frameworks
+
+The current PHP landscape is dominated by two web application frameworks: [Laravel](https://laravel.com/) and [Symfony](https://symfony.com/). While a detailed breakdown of the differences and similarities between these is out of scope for this post, suffice to say that they're both modern, expressive frameworks that aim to make it easier to write robust, fast, and maintainable web applications while reducing the need to write boilerplate code as much as possible.
+
+If you're concerned about frameworks perhaps being "overkill" for what you want to do with PHP, you'll be happy to hear that Symfony is a microframework out of the box (all components outside of the core framework are 100% optional), and Laravel also has a microframework variant called [Lumen](https://lumen.laravel.com/).
+
+To help you get a bit of a feel for these, here's what some typical modern PHP code written with one of these frameworks might look like:
+
+```php
+<?php
+
+namespace App\Controller;
+
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+class ExampleController
+{
+    // the RandomNumberGenerator is automatically
+    // injected by a service container
+
+    public function __construct(
+        private RandomNumberGenerator $randomNumberGenerator
+    ) {}
+
+    #[Route('/number')]
+    public function number(): Response
+    {
+        $number = $this->randomNumberGenerator->generate(min: 1, max: 100)
+
+        return new Response(
+            "<html><body>Your lucky number is: $number</body></html>"
+        );
+    }
+}
+```
+
+## The Open-Source Ecosystem
+
+PHP has an incredibly robust open-source ecosystem that I honestly think even a lot of more "respectable" languages can envy.
+
+There are high-quality, well-maintained open-source libraries available for pretty much everything the average PHP application is likely to need, and many of the most popular packages in the ecosystem are maintained by established vendors or projects rather than [individual maintainers](https://xkcd.com/2347/), though of course there's plenty of those, too.
+
+Anyhow, the following is a _very_ surface-level overview of some of the most significant packages in the PHP ecosystem:
+
+- `symfony/*` - the [Symfony Components](https://symfony.com/components), a set of incredibly popular PHP packages and the foundation for the [Symfony framework](https://symfony.com/doc/current/index.html)
+  - `symfony/cache` - a production-ready caching library with support for many different backing stores
+  - `symfony/console` - a CLI library used by many notable PHP projects
+  - `symfony/dependency-injection` - a [PSR-11](https://www.php-fig.org/psr/psr-11/)-compatible service container
+  - `symfony/dotenv` - a `.env` file parser
+  - `symfony/event-dispatcher` - an event dispatcher
+  - `symfony/form` - a library for creating and processing forms (HTML or otherwise)
+  - `symfony/http-client` - an HTTP client library
+  - `symfony/mailer` - a multi-transport library for creating and sending emails
+  - `symfony/messenger` - a message bus with support for sync and async message processing
+  - `symfony/notifier` - a tool for sending notifications with first-party support for email, SMS, Slack, Discord, Telegram, push notifications, and more
+  - `symfony/routing` - the router used by the Symfony framework
+  - `symfony/security` - utilities for authentication, authorization, CSRF protection, and other common security needs
+  - `symfony/serializer` - a serialization/deserialization library with support for JSON, XML, YAML, CSV, and more
+  - `symfony/validator` - a data validation library
+- `league/*` - [The League of Extraordinary Packages](https://thephpleague.com/), a set of modern, standards-compliant PHP packages developed with the explicit mission of improving the PHP ecosystem
+  - `league/commonmark` - a CommonMark-compliant Markdown parser
+  - `league/csv` - read and write CSV documents
+  - `league/flysystem` - a filesystem abstraction with support for local filesystems, object storage, FTP, and more
+  - `league/oauth2-server` - an OAuth 2.0 authorization server implementation
+  - `league/oauth2-client` - an OAuth 2.0 client library with built-in and community support for many common OAuth 2.0 providers, as well as custom providers
+  - `league/omnipay` - a multi-gateway payment processing library
+- `doctrine/*` - packages from [the Doctrine Project](https://www.doctrine-project.org/), largely but not exclusively related to working with databases
+  - `doctrine/collections` - utilities for working with arrays of data
+  - `doctrine/dbal` - a **d**ata**b**ase **a**bstraction **l**ayer with support for MySQL, Oracle, Microsoft SQL Server, PostgreSQL, and SQLite databases
+  - `doctrine/orm` - the Doctrine ORM, a popular PHP ORM based on the Data Mapper pattern
+  - `doctrine/migrations` - utilities for database schema versioning (i.e. [database migrations](https://en.wikipedia.org/wiki/Schema_migration))
+- `phpoffice/*` - packages from the [PHPOffice](https://github.com/PHPOffice) project, a set of libraries for working with file formats produced by Microsoft Office and other office suites
+  - `phpoffice/phppresentation` - read and write presentation file formats (e.g. `.pptx`)
+  - `phpoffice/phpspreadsheet` - read and write spreadsheet file formats (e.g. `.xlsx`, `.csv`)
+  - `phpoffice/phpword` - read and write document file formats (e.g. `.docx`)
+- `guzzlehttp/guzzle` - an HTTP client library based on [PSR-7](https://www.php-fig.org/psr/psr-7/)
+- `monolog/monolog` - a very widely-used logging library based on [PSR-3](https://www.php-fig.org/psr/psr-3/)
+- `phpunit/phpunit` - the de facto standard PHP testing framework, based on the [xUnit](https://en.wikipedia.org/wiki/XUnit) architecture
+- `pestphp/pest` - a modern testing framework built on top of PHPUnit
+- `nesbot/carbon` - an extension of the PHP `DateTime` API
+- `phpstan/phpstan` - a static analysis tool, the most popular of several active projects
+- `twig/twig` - a modern template engine, inspired by Python's Jinja template engine
+
+## PHP-FIG
+
+[PHP-FIG](https://www.php-fig.org/) — short for "PHP **F**ramework **I**nterop **G**roup" — is a group of influential projects in the PHP community working to push PHP forward by standardizing a bunch of things every project was doing in its own, ever-so-slightly incompatible way.
+
+Unfortunately, while pretty much all of the most influential projects in the PHP ecosystem _were_ once members of PHP-FIG, many have since left over concerns that the project was headed in the direction of building a "framework-by-committee" rather than working on relatively simple standards everyone could actually implement. [Some things](https://xkcd.com/1095/) never change, I guess.
+
+That being said, PHP-FIG still very much deserves a place in this post, both because it's frankly a pretty unique project I don't think I've seen attempted anywhere else, and also because it's still produced a number of incredibly useful [PSRs](https://www.php-fig.org/psr/) (**P**HP **S**tandard **R**ecommendations) over the years. These include:
+
+- an autoloading standard ([PSR-4](https://www.php-fig.org/psr/psr-4/))
+- interfaces for common app/framework components ([PSR-3](https://www.php-fig.org/psr/psr-3/), [PSR-6](https://www.php-fig.org/psr/psr-6/), [PSR-11](https://www.php-fig.org/psr/psr-11/), [PSR-14](https://www.php-fig.org/psr/psr-14/), [PSR-16](https://www.php-fig.org/psr/psr-16/))
+- standards for HTTP request/response objects and code that handles them ([PSR-7](https://www.php-fig.org/psr/psr-7/), [PSR-18](https://www.php-fig.org/psr/psr-18/))
+- style guides ([PSR-1](https://www.php-fig.org/psr/psr-1/), [PSR-12](https://www.php-fig.org/psr/psr-12/))
+
+## No Compiling/Transpiling
+
+One thing you'll probably find refreshing about PHP compared to many comparable languages is that it doesn't require a build step (at least, not one that you have to think about). In fact, due to PHP's typical execution model (more on that later), not only is there no build step, but you don't even have to restart your web server when you change your code — hit save, send the request again and the response you get will be from the code you just saved.
+
+One major benefit of this (to me, anyway) is that when you install a package through Composer, you're simply downloading the source code of the package, not compiled artifacts or code mangled by some build tool before publishing. What this means for you is that any time you click into, say, a function that comes from a third-party package, you're going to be looking at the actual source code — formatting, comments and all.
+
+## PHP is Fast
+
+While it's hard to make apples-to-apples performance comparisons between programming languages, and you probably shouldn't be worrying about language runtime performance that much anyway (your code is almost always going to be I/O-bound, after all), it's worth pointing out that modern PHP is very fast, handily beating "slow" languages like Ruby in [synthetic benchmarks](https://benchmarksgame-team.pages.debian.net/benchmarksgame/fastest/php-ruby.html).
+
+More than anything else, this is thanks to lots of hard work put into improving performance by the PHP team over the years, up to and including adding entirely new features, such as the [JIT compiler](https://php.watch/versions/8.0/JIT) introduced in PHP 8.
+
+## The Ups and Downs of PHP's Unique Execution Model
+
+You might have heard people say that PHP was "doing serverless before serverless was a thing", and this is _kind of_ true.
+
+The way people used to write PHP was they'd have a bunch of PHP files where each file corresponded to a page or route (e.g. `index.php` for a homepage, `item.php` for another page, and so on) and output some HTML. Then they'd upload this code to their server — often a shared hosting provider where all a developer had to do was FTP the files up to the server, and it'd just work. The web server would handle all the parts external to your code, like starting up a PHP process for the request and giving it the right script based on the path.
+
+There's a lot of sites on the internet that still work this way, and while PHP has since evolved past some parts of this approach, you can probably see how it resembles some patterns that have become popular in recent years, like [filesystem-based routing](https://nextjs.org/docs/routing/introduction) and [serverless functions](https://vercel.com/docs/concepts/functions/serverless-functions).
+
+The part of this that's most relevant today is the idea that **your app gets initialized and torn down for every request**. Any variables you set, anything you do to the objects in your app, everything gets wiped out at the end of the request — there's no way to persist data between requests without relying on some sort of external resource, like a database.
+
+There are naturally some drawbacks to this setup, not the least of which being that it means that putting some data in memory to keep it around for a while is less trivial in PHP than it is in something like Node.js. On the other hand, this setup makes whole classes of bugs impossible at the application level (like meaningful memory leaks), and perhaps more importantly, it means you don't have to worry about writing async code nearly as much as other languages, because you're only ever going to be handling one request per process anyway.
+
+For instance, making an HTTP request is as simple as writing a blocking call to an HTTP client:
+
+```php
+use Symfony\Component\HttpClient\HttpClient;
+
+$client = HttpClient::create();
+$response = $client->request('GET', 'https://example.com');
+
+$statusCode = $response->getStatusCode();
+$content = $response->getContent();
+```
+
+In most other languages, code like this would be a huge no-no because you'd be blocking the runtime from handling any other requests while you wait for that call to `HttpClient::request()` to finish. In PHP, though, because the assumption that you have the process "to yourself" is built into the language, you can write blocking code like this safely, while avoiding the mental overhead that async code can sometimes involve.
+
+I should probably cap this section off by mentioning that there _has_ been a push in recent years to make asynchronous code viable in PHP, and frameworks like [Amp](https://amphp.org/) have made significant progress in this area. That being said, the vast majority of PHP code is still synchronous, and will be for the foreseeable future.
+
+## Conclusion
+
+If you came into this post with the mindset that PHP is a legacy language nobody in their right mind would want to write code for today, well, I hope I've been able to at least somewhat change your mind on that.
+
+PHP, of course, still has its share of warts, but more than anything else, what I wanted to convey with this post is that **it's absolutely possible to write reliable, clean, maintainable code in PHP that you and/or your team will be happy with**. Not only that, but there are parts of PHP that you might even _prefer_ to how things work in other languages you're familiar with.
+
+Still not convinced? You're more than welcome to peruse the rest of this site to perhaps get a better feel for what real-world PHP looks like, and if you have concerns you think I overlooked in this post, I'd be happy to talk about it [on Twitter](https://twitter.com/omegavesko).
