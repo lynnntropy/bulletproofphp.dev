@@ -7,7 +7,19 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      typography: {
+        lg: {
+          css: {
+            pre: {
+              code: {
+                fontSize: "14px",
+              },
+            },
+          },
+        },
+      },
+    },
     fontFamily: {
       title: ["Inter", "Helvetica", "Arial", "sans-serif"],
     },
