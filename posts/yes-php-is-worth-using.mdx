@@ -78,7 +78,7 @@ class WidgetManager
 
 ```php
 $error = match ($code) {
-    0 = null,
+    0 => null,
     1 => new SomeError(),
     2, 3, 4 => new OtherError(),
     default => new UnknownError(),
